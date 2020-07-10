@@ -96,9 +96,30 @@ const big = 9223372036854775807 + 1
 Test`)
 	fmt.Println("\"")
 	fmt.Println(`"`)
+
+----------------------------------
+
+	<<golang_lesson 論理値型>>
+----------------------------------
+	//normal
+	//var t, f bool = true, false
+	//short
+	t, f := true, false
+	fmt.Printf("%T %v %t\n", t, 1, t)
+	fmt.Printf("%T %v %t\n", f, 0, f)
+	// &&はどちらも同じならtrue
+	fmt.Println(true && true)
+	fmt.Println(true && false)
+	fmt.Println(false && false)
+	// ||はどちらかがtrueならtrue
+	fmt.Println(true || true)
+	fmt.Println(true || false)
+	fmt.Println(false || false)
+	//　!は否定
+	fmt.Println(!true)
+	fmt.Println(!false)
+
 */
-
-
 
 func main() {
 
