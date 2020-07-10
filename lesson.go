@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -40,12 +38,11 @@ constは変数を認識しているが関数内で処理出来る。
 
 const big = 9223372036854775807 + 1
 ----------------------------------
-*/
 
+	<<golang_lesson 数値型>>
+----------------------------------
 
-func main() {
 	//golngのお作法で”=”のところを揃える
-	/*
 		var(
 			u8 uint8 	  = 255
 			i8 int8 	  = 127
@@ -55,8 +52,6 @@ func main() {
 		fmt.Println(u8, i8, f32, c64)
 
 		fmt.Printf("%T %v", u8, u8)
-	*/
-	/*
 	x := 1 + 1
 	fmt.Println(x)
 	fmt.Println(1+1, 2+2)
@@ -68,8 +63,6 @@ func main() {
 	fmt.Println("10 / 3.0 =", 10/3.0)
 	fmt.Println("10 % 2 =", 10%2)
 	fmt.Println("10 % 3 =", 10%3)
-	 */
-	/*
 	x := 0
 	fmt.Println(x)
 	// x = x + 1
@@ -78,9 +71,35 @@ func main() {
 	// x = x - 1
 	x--
 	fmt.Println(x)
-	 */
 	fmt.Println(1 << 0) //0001 0001
 	fmt.Println(1 << 1) //0001 0010
 	fmt.Println(1 << 2) //0001 0100
 	fmt.Println(1 << 3) //0001 1000
+----------------------------------
+
+	<<golang_lesson 文字型>>
+----------------------------------
+
+	fmt.Println("Hello world")
+	fmt.Println("Hello "+"world")
+	//このままだとASCIIコード=>72
+	fmt.Println("Hello world"[0])
+	//Cast=>"H"
+	fmt.Println(string("Hello world"[0]))
+	var s string = "Hello world"
+	//replace
+	s = strings.Replace(s, "H", "X", 1)
+	fmt.Println(s)
+	//contains
+	fmt.Println(strings.Contains(s, "world"))
+	fmt.Println(`Test
+Test`)
+	fmt.Println("\"")
+	fmt.Println(`"`)
+*/
+
+
+
+func main() {
+
 }
