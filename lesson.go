@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -330,8 +332,51 @@ func main() {
 	fmt.Println(c2(2))
 
 }
+----------------------------------
+
+	<<golang_lesson 可変長変数>>
+----------------------------------
+// 可変長変数
+func foo(params ...int){
+	fmt.Println(len(params), params)
+	for _, param := range params{
+		fmt.Println(param)
+	}
+
+}
+
+
+func main() {
+	foo()
+	foo(10,20)
+	foo(10, 20, 30)
+	//スライスの可変長変数の渡し方
+	s := []int{1, 2, 3}
+	fmt.Println(s)
+	foo(s...)
+}
 
 */
 
+func foo() {
+	mm := map[string]int{
+		"Mike": 20,
+		"Nancy": 24,
+		"Messi": 30,
+	}
+	fmt.Printf("%T %v\n", mm, mm)
+}
+
+
 func main() {
+	f := 1.11
+	i := int(f)
+	//fmt.Println(f)
+	fmt.Println("------------------------------")
+	fmt.Printf("演習Q1：%T %v\n", i, i )
+	fmt.Println("演習Q2：", 5,6)
+	foo()
+	//fmt.Println("演習Q3：", int(f))
+	fmt.Println("------------------------------")
+
 }
