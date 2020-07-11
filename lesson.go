@@ -1,10 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-)
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -123,10 +118,10 @@ Test`)
 	//　!は否定
 	fmt.Println(!true)
 	fmt.Println(!false)
+----------------------------------
 
-*/
-
-func main() {
+	<<golang_lesson 型変換>>
+----------------------------------
 	var x int = 1
 	xx := float64(x)
 	fmt.Printf("%T %v %f\n", xx, xx, xx)
@@ -140,5 +135,51 @@ func main() {
 	fmt.Printf("%T %v\n", i, i)
 	h := "Hello World"
 	fmt.Println(string(h[0]))
+
+----------------------------------
+
+	<<golang_lesson 配列>>
+----------------------------------
+	/*
+	var a [2]int
+	a[0] = 100
+	a[1] = 200
+	fmt.Println(a)
+
+	var b = [2]int{300, 400}
+	//配列はサイズを変更できない
+	fmt.Println(b)
+
+	var b = []int{500, 600}
+	b = append(b, 700)
+	fmt.Println(b)
+----------------------------------
+
+	<<golang_lesson 配列>>
+----------------------------------
+	n := []int{1, 2, 3, 4, 5, 6}
+	fmt.Println(n)
+	fmt.Println(n[2])
+	fmt.Println(n[2:4])
+	fmt.Println(n[:2])
+	fmt.Println(n[2:])
+	fmt.Println(n[:])
+
+	n[2] = 100
+	fmt.Println(n)
+	fmt.Printf("%T %v\n", n, n)
+
+	var board = [][]int{
+		{0,1,2},
+		{3,4,5},
+		{6,7,8},
+	}
+	fmt.Println(board)
+	//最後に追加されていく
+	n = append(n, 100, 200, 300, 400, 500)
+	fmt.Println(n)
+*/
+
+func main() {
 
 }
