@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -451,37 +449,40 @@ func main() {
 		fmt.Println(v)
 	}
 }
+
+----------------------------------
+
+	<<golang_lesson switch文>>
+----------------------------------
+
+func getOsname()string{
+	return "mac"
+}
+
+func main() {
+	os := getOsname()
+	switch os {
+	case "mac":
+		fmt.Println("Mac!")
+	case "windows":
+		fmt.Println("Windows!")
+	default:
+		fmt.Printf("default")
+	}
+	fmt.Println(os)
+
+	/*　switch文以降で変数を使わないなら変数のところもワンライナーで書ける
+	switch os := getOsname(); os {
+	case "mac":
+		fmt.Println("Mac!")
+	case "windows":
+		fmt.Println("Windows!")
+	default:
+		fmt.Printf("default")
+	}
+	fmt.Println(os)
+
 */
 
 func main() {
-	l := []string{"python", "go", "java"}
-	l = append(l, "ruby")
-	fmt.Printf("%T %v\n", l, l)
-	//forで書いてみる
-	for i := 0; i < len(l); i++{
-		fmt.Println(i, l[i])
-	}
-	//rangeで書いてみる(上と一緒)
-	for i, v := range l{
-		fmt.Println(i, v)
-	}
-	//rangeのインデックス番号不要バージョン（"_"でそうなるらしい）
-	for _, v := range l{
-		fmt.Println(v)
-	}
-	//mapでの場合
-	m := map[string]int{"test1": 100, "test2": 200}
-	//mapに要素追加
-	m["test3"] = 300
-	for k, v := range m{
-		fmt.Println(k, v)
-	}
-	//keyのみは"_"が不要
-	for k := range m{
-		fmt.Println(k)
-	}
-	//valueのみはスライスと同様
-	for _, v := range m{
-		fmt.Println(v)
-	}
 }
