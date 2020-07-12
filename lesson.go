@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -484,5 +489,27 @@ func main() {
 
 */
 
+func getOsname()string{
+	return "mac"
+}
+
 func main() {
+	os := getOsname()
+	switch os {
+	case "mac":
+		fmt.Println("Mac!")
+	case "windows":
+		fmt.Println("Windows!")
+	default:
+		fmt.Printf("default")
+	}
+
+	t := time.Now()
+	fmt.Println(t.Hour())
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Morning!")
+	case t.Hour() < 17:
+		fmt.Println("afternoon")
+	}
 }
