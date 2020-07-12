@@ -257,8 +257,6 @@ Test`)
  fmt.Println(c)
  fmt.Println(string(c))
 
-*/
-/*
 func otameshi(x string, y string){
 	fmt.Println("とりあえずお決まりの")
 	fmt.Println(x + y)
@@ -417,34 +415,73 @@ func main() {
 	}
 }
 
+----------------------------------
 
+	<<golang_lesson range文>>
+----------------------------------
+func main() {
+	l := []string{"python", "go", "java"}
+	l = append(l, "ruby")
+	fmt.Printf("%T %v\n", l, l)
+	//forで書いてみる
+	for i := 0; i < len(l); i++{
+		fmt.Println(i, l[i])
+	}
+	//rangeで書いてみる(上と一緒)
+	for i, v := range l{
+		fmt.Println(i, v)
+	}
+	//rangeのインデックス番号不要バージョン（"_"でそうなるらしい）
+	for _, v := range l{
+		fmt.Println(v)
+	}
+	//mapでの場合
+	m := map[string]int{"test1": 100, "test2": 200}
+	//mapに要素追加
+	m["test3"] = 300
+	for k, v := range m{
+		fmt.Println(k, v)
+	}
+	//keyのみは"_"が不要
+	for k := range m{
+		fmt.Println(k)
+	}
+	//valueのみはスライスと同様
+	for _, v := range m{
+		fmt.Println(v)
+	}
+}
 */
 
 func main() {
-	//roop毎に+1
-	//変数（i）の宣言をforに含む方法
-	for i := 0; i < 10; i++{
-		if i == 3{
-			fmt.Println("continue")
-			continue
-		}
-
-		if i > 5 {
-			fmt.Println("break")
-			break
-		}
-		fmt.Println(i)
+	l := []string{"python", "go", "java"}
+	l = append(l, "ruby")
+	fmt.Printf("%T %v\n", l, l)
+	//forで書いてみる
+	for i := 0; i < len(l); i++{
+		fmt.Println(i, l[i])
 	}
-	//roop毎に+sumの値
-	//変数（sum）を先に宣言しておく方法
-	sum := 1
-	for ; sum < 10; {
-		sum += sum
-		fmt.Println(sum)
+	//rangeで書いてみる(上と一緒)
+	for i, v := range l{
+		fmt.Println(i, v)
 	}
-	fmt.Println(sum)
-	//無限ループ
-	for {
-		fmt.Println("hello")
+	//rangeのインデックス番号不要バージョン（"_"でそうなるらしい）
+	for _, v := range l{
+		fmt.Println(v)
+	}
+	//mapでの場合
+	m := map[string]int{"test1": 100, "test2": 200}
+	//mapに要素追加
+	m["test3"] = 300
+	for k, v := range m{
+		fmt.Println(k, v)
+	}
+	//keyのみは"_"が不要
+	for k := range m{
+		fmt.Println(k)
+	}
+	//valueのみはスライスと同様
+	for _, v := range m{
+		fmt.Println(v)
 	}
 }
