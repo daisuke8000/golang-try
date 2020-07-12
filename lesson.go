@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -381,7 +383,68 @@ func main() {
 	fmt.Println("------------------------------")
 
 }
+
+----------------------------------
+
+	<<golang_lesson for文>>
+----------------------------------
+func main() {
+	//roop毎に+1
+	//変数（i）の宣言をforに含む方法
+	for i := 0; i < 10; i++{
+		if i == 3{
+			fmt.Println("continue")
+			continue
+		}
+
+		if i > 5 {
+			fmt.Println("break")
+			break
+		}
+		fmt.Println(i)
+	}
+	//roop毎に+sumの値
+	//変数（sum）を先に宣言しておく方法
+	sum := 1
+	for ; sum < 10; {
+		sum += sum
+		fmt.Println(sum)
+	}
+	fmt.Println(sum)
+	//無限ループ
+	for {
+		fmt.Println("hello")
+	}
+}
+
+
 */
 
 func main() {
+	//roop毎に+1
+	//変数（i）の宣言をforに含む方法
+	for i := 0; i < 10; i++{
+		if i == 3{
+			fmt.Println("continue")
+			continue
+		}
+
+		if i > 5 {
+			fmt.Println("break")
+			break
+		}
+		fmt.Println(i)
+	}
+	//roop毎に+sumの値
+	//変数（sum）を先に宣言しておく方法
+	sum := 1
+	for ; sum < 10; {
+		sum += sum
+		fmt.Println(sum)
+	}
+	fmt.Println(sum)
+	//無限ループ
+	for {
+		fmt.Println("hello")
+	}
 }
