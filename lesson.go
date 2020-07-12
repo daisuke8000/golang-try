@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -356,7 +354,10 @@ func main() {
 	foo(s...)
 }
 
-*/
+----------------------------------
+
+	<<golang_lesson 演習>>
+----------------------------------
 
 func foo() {
 	mm := map[string]int{
@@ -379,4 +380,8 @@ func main() {
 	//fmt.Println("演習Q3：", int(f))
 	fmt.Println("------------------------------")
 
+}
+*/
+
+func main() {
 }
