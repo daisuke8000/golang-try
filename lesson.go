@@ -1,10 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -487,29 +482,67 @@ func main() {
 	}
 	fmt.Println(os)
 
-*/
 
-func getOsname()string{
-	return "mac"
+----------------------------------
+
+	<<golang_lesson defer>>
+----------------------------------
+
+func foo(){
+	defer fmt.Println("foo world")
+
+	fmt.Println("foo hello")
 }
 
 func main() {
-	os := getOsname()
-	switch os {
-	case "mac":
-		fmt.Println("Mac!")
-	case "windows":
-		fmt.Println("Windows!")
-	default:
-		fmt.Printf("default")
-	}
+	/*
+	foo()
+	defer fmt.Println("world")
 
-	t := time.Now()
-	fmt.Println(t.Hour())
-	switch {
-	case t.Hour() < 12:
-		fmt.Println("Morning!")
-	case t.Hour() < 17:
-		fmt.Println("afternoon")
+	fmt.Println("hello")
+
+	fmt.Println("run")
+	defer fmt.Println(1)
+	defer fmt.Println(2)
+	defer fmt.Println(3)
+	fmt.Println("success")
+
+
+file, _ := os.Open("./lesson.go")
+defer file.Close()
+data := make([]byte, 100)
+file.Read(data)
+fmt.Println(string(data))
+}
+
+
+----------------------------------
+
+	<<golang_lesson log>>
+----------------------------------
+func loggingSettings (logFile string) {
+	logfile, _ := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	multiLogFile := io.MultiWriter(os.Stdout, logfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	log.SetOutput(multiLogFile)
+}
+
+func main() {
+	loggingSettings("test.log")
+	_, err := os.Open("ffsfsf")
+	if err != nil{
+		log.Fatalln("Exit..", err)
 	}
+	log.Println("Logging")
+	log.Printf("%T %v", "test", "test")
+
+	log.Fatalf("%T %v", "test", "test" )
+	log.Fatalln("error!!")
+
+	fmt.Println("OK!")
+}
+
+*/
+
+func main() {
 }
