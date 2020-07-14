@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
+	"sort"
 )
 
 /*
@@ -547,9 +546,10 @@ func main() {
 
 	fmt.Println("OK!")
 }
+----------------------------------
 
-*/
-
+	<<golang_lesson エラーハンドリング>>
+----------------------------------
 func main() {
 	file, err := os.Open("./lesson.go")
 	//errorじゃなければnilが返ってくる。
@@ -567,4 +567,105 @@ func main() {
 	if err = os.Chdir("test"); err != nil{
 		log.Fatalln("Error")
 	}
+}
+
+----------------------------------
+<<golang_lesson panicとrecover>>
+----------------------------------
+func thirdPartyConnectDB() {
+	panic("Unable to database!")
+}
+
+func save() {
+	defer func() {
+		s := recover()
+		fmt.Println(s)
+	}()
+	thirdPartyConnectDB()
+}
+func main() {
+	save()
+	fmt.Println("OK?")
+}
+
+func thirdPartyConnectDB() {
+	panic("Unable to database!")
+}
+
+func save() {
+	defer func() {
+		s := recover()
+		fmt.Println(s)
+	}()
+	thirdPartyConnectDB()
+}
+func main() {
+	save()
+	fmt.Println("OK?")
+}
+----------------------------------
+<<golang_lesson 演習２>>
+----------------------------------
+
+func ques1(l []int){
+	sort.Sort(sort.IntSlice(l))
+	fmt.Println("Ans >>", l[0])
+}
+
+func ques2(m map[string]int){
+	sum := 0
+	for _, v := range m{
+		//fmt.Println(v)
+		sum += v
+		//fmt.Println(sum)
+	}
+	fmt.Println("Ans >>",sum)
+}
+
+func main() {
+	l := []int{100, 300, 23, 11, 23, 2, 4, 6, 4}
+	fmt.Println("Q1: 以下から最小値を出力せよ\n", l)
+	ques1(l)
+	m := map[string]int{
+		"apple": 200,
+		"banana": 300,
+		"grapes": 150,
+		"orange": 80,
+		"papaya": 500,
+		"kiwi": 90,
+	}
+	fmt.Println("Q2: 果物の価格を合計せよ\n", m)
+	ques2(m)
+}
+*/
+
+func ques1(l []int){
+	sort.Sort(sort.IntSlice(l))
+	fmt.Println("Ans >>", l[0])
+}
+
+func ques2(m map[string]int){
+	sum := 0
+	for _, v := range m{
+		//fmt.Println(v)
+		sum += v
+		//fmt.Println(sum)
+	}
+	fmt.Println("Ans >>",sum)
+}
+
+func main() {
+	l := []int{100, 300, 23, 11, 23, 2, 4, 6, 4}
+	fmt.Println("Q1: 以下から最小値を出力せよ\n", l)
+	ques1(l)
+	m := map[string]int{
+		"apple": 200,
+		"banana": 300,
+		"grapes": 150,
+		"orange": 80,
+		"papaya": 500,
+		"kiwi": 90,
+	}
+	fmt.Println("Q2: 果物の価格を合計せよ\n", m)
+	ques2(m)
 }
