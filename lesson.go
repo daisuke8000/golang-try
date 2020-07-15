@@ -1,10 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -637,35 +632,60 @@ func main() {
 	fmt.Println("Q2: 果物の価格を合計せよ\n", m)
 	ques2(m)
 }
-*/
 
-func ques1(l []int){
-	sort.Sort(sort.IntSlice(l))
-	fmt.Println("Ans >>", l[0])
-}
+----------------------------------
+<<golang_lesson ポインタ>>
+----------------------------------
 
-func ques2(m map[string]int){
-	sum := 0
-	for _, v := range m{
-		//fmt.Println(v)
-		sum += v
-		//fmt.Println(sum)
-	}
-	fmt.Println("Ans >>",sum)
+func one(x *int){
+	*x = 1
 }
 
 func main() {
-	l := []int{100, 300, 23, 11, 23, 2, 4, 6, 4}
-	fmt.Println("Q1: 以下から最小値を出力せよ\n", l)
-	ques1(l)
-	m := map[string]int{
-		"apple": 200,
-		"banana": 300,
-		"grapes": 150,
-		"orange": 80,
-		"papaya": 500,
-		"kiwi": 90,
+	var n int = 100
+	//&nはポインタ
+	one(&n)
+	fmt.Println(n)
+	/*
+	fmt.Println(&n)
+
+	var p *int = &n
+	fmt.Println(p)
+
+	fmt.Println(*p)
+
+}
+----------------------------------
+<<golang_lesson >>newとmakeの違い
+----------------------------------
+func main() {
+	//空のスライス
+	s := make([]int, 0)
+	fmt.Printf("%T\n", s)
+	//空のmap
+	m := make(map[string]int)
+	fmt.Printf("%T\n", m)
+	//チャネル
+	ch := make(chan int)
+	fmt.Printf("%T\n", ch)
+	//ポインタ
+	var p *int = new(int)
+	fmt.Printf("%T\n", p)
+	//ストラクト
+	var st = new(struct{})
+	fmt.Printf("%T\n", st)
+	/*
+	var p *int = new(int)
+	fmt.Println(p)
+	*p++
+	fmt.Println(*p)
+
+	var p2 *int
+	fmt.Println(p2)
+	*p2++
+	fmt.Println(p2)
 	}
-	fmt.Println("Q2: 果物の価格を合計せよ\n", m)
-	ques2(m)
+*/
+
+func main() {
 }
