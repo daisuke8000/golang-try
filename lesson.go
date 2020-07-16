@@ -687,8 +687,10 @@ func main() {
 	*p2++
 	fmt.Println(p2)
 	}
-*/
 
+----------------------------------
+<<golang_lesson struct>>
+----------------------------------
 type Vertex struct{
 	X int
 	Y int
@@ -711,15 +713,6 @@ func main() {
 	v2 := &Vertex{1, 2, "test"}
 	changeVertex2(v2)
 	fmt.Println(*v2)
-	/*
-	v := Vertex{X: 1, Y: 2}
-	fmt.Println(v)
-	fmt.Println(v.X, v.Y)
-	v.X = 100
-	fmt.Println(v.X, v.Y)
-
-	v2 := Vertex{X: 1}
-	fmt.Println(v2)
 
 	v3 := Vertex{1,2,"test"}
 	fmt.Println(v3)
@@ -739,6 +732,53 @@ func main() {
 	v7 := &Vertex{}
 	fmt.Println(v7)
 	fmt.Printf("%T %v\n", v7, v7)
-	*/
 
+}
+
+func main() {
+	var i int = 10
+	var p *int
+	p = &i
+	fmt.Println(p)
+	var j int
+	j = *p
+	fmt.Println(j)
+	var i2 int = 100
+	var j2 int = 200
+	var p1 *int
+	var p2 *int
+	p1 = &i2
+	p2 = &j2
+	fmt.Println(p1, p2)
+	fmt.Println(*p1, *p2)
+	i2 = *p1 + *p2
+	p2 = p1
+	j2 = *p2 + i2
+	fmt.Println(j2)
+}
+
+*/
+
+type Vertex struct{
+	X, Y int
+}
+
+func (v Vertex) Area() int{
+	return v.X * v.Y
+}
+
+func (v *Vertex) Scale(i int) {
+	v.X = v.X * i
+	v.Y = v.Y * i
+}
+
+func Area(v Vertex)int{
+	return v.X * v.Y
+}
+
+func main() {
+	v := Vertex{3, 4}
+	//fmt.Println(Area(v))
+	v.Scale(10)
+	fmt.Println(v.Area())
 }
