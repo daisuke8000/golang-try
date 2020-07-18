@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -804,47 +802,169 @@ func main() {
 	fmt.Println(v.Area3D())
 }
 
-*/
 
-type Vertex struct{
-	x, y int
+
+----------------------------------
+<<golang_lesson non-struct>>
+----------------------------------
+
+type MyInt int
+
+func (i MyInt) Double() int{
+	fmt.Printf("%T %v\n", i, i)
+	fmt.Printf("%T %v\n", 1, 1)
+	return int(i * 2)
 }
 
-func (v Vertex) Area() int{
-	return v.x * v.y
+func main() {
+	myInt := MyInt(10)
+	fmt.Println(myInt.Double())
 }
 
-func (v *Vertex) Scale(i int) {
-	v.x = v.x * i
-	v.y = v.y * i
+----------------------------------
+<<golang_lesson interface&ダックタイピング>>
+----------------------------------
+type Human interface {
+	Say() string
 }
 
-type Vertex3D struct{
-	Vertex
-	z int
+type Person struct {
+	Name string
 }
 
-func (v Vertex3D) Area3D() int{
-	return v.x * v.y * v.z
+//type Dog struct {
+//	Name string
+//}
+
+func (p *Person) Say() string{
+	//fmt.Printf("%T\n %v\n", p, p)
+	p.Name = "Mr." + p.Name
+	fmt.Println(p.Name)
+	return p.Name
 }
 
-func (v *Vertex3D) Scale3D(i int) {
-	v.x = v.x * i
-	v.y = v.y * i
-	v.z = v.z * i
+func DriveCar(human Human){
+	if human.Say() == "Mr.Mike"{
+		fmt.Println("Run")
+	}else{
+		fmt.Println("Get out")
+	}
 }
 
+func main() {
+	var mike Human = &Person{"Mike"}
+	var x Human = &Person{"x"}
+	//var dog Dog = Dog{"dog"}
+	DriveCar(mike)
+	DriveCar(x)
+	//DriveCar(dog)
+}
+----------------------------------
+<<golang_lesson タイプアサーション&switch,type>>
+----------------------------------
+func do(i interface{}){
+	/*
+	ii := i.(int)
+	ii *= 2
+	fmt.Println(ii)
+	ss := i.(string)
+	fmt.Println(ss + "!")
 
-func New(x, y, z int) *Vertex3D {
-	return &Vertex3D{Vertex{x, y},z}
+switch v := i.(type) {
+case int:
+fmt.Println(v * 2)
+case string:
+fmt.Println(v + "!")
+default:
+fmt.Printf("I don't Know %T\n", v)
+}
+}
+
+func main() {
+	do(10)
+	do("Mike")
+	do(true)
+
+	var i int = 10
+	ii := float64(10)
+	fmt.Println(i, ii)
+}
+
+----------------------------------
+<<golang_lesson Stringer>>
+----------------------------------
+
+type Person struct {
+	Name string
+	Age int
+}
+
+func (p Person) String() string{
+	return fmt.Sprintf("My name is %v.", p.Name)
+}
+
+func main() {
+	mike := Person{"Mike", 22}
+	fmt.Println(mike)
+}
+----------------------------------
+<<golang_lesson カスタムエラー>>
+----------------------------------
+
+type UserNotFound struct {
+	Username string
+}
+
+func (e *UserNotFound) Error() string{
+	return fmt.Sprintf("User not found: %v", e.Username)
+}
+
+func myFunc() error {
+	//Something wrong
+	ok := false
+	if ok {
+		return nil
+	}
+	return &UserNotFound{Username: "mike"}
+}
+
+func main() {
+	e1 := &UserNotFound{"kinntarou"}
+	e2 := &UserNotFound{"kinntarou"}
+	fmt.Println(e1 == e2)
+	if err := myFunc(); err != nil {
+		fmt.Println(err)
+		if err == e1{
+
+		}
+	}
+}
+
+----------------------------------
+<<golang_lesson 演習>>
+----------------------------------
+type Vertex struct {
+	X, Y int
+}
+
+func (v Vertex) plus() int{
+	return v.X + v.Y
+}
+
+func (v Vertex) String() string{
+	return fmt.Sprintf("X is %d! Y is %d!", v.X,v.Y)
 }
 
 
 func main() {
-	//v := Vertex{3, 4}
-	//fmt.Println(Area(v))
-	v := New(3,4, 5)
-	v.Scale3D(10)
-	fmt.Println(v.Area())
-	fmt.Println(v.Area3D())
+	v := Vertex{3, 4}
+	fmt.Println(v.plus())
+	fmt.Println(v)
 }
+*/
+
+
+func main() {
+
+}
+
