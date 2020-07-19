@@ -1,5 +1,11 @@
 package main
 
+import (
+	"awesomeProject/mylib"
+	"awesomeProject/mylib/under"
+	"fmt"
+)
+
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -508,7 +514,7 @@ func main() {
 	fmt.Println("success")
 
 
-file, _ := os.Open("./lesson.go")
+file, _ := os.Open("./main.go")
 defer file.Close()
 data := make([]byte, 100)
 file.Read(data)
@@ -546,7 +552,7 @@ func main() {
 	<<golang_lesson エラーハンドリング>>
 ----------------------------------
 func main() {
-	file, err := os.Open("./lesson.go")
+	file, err := os.Open("./main.go")
 	//errorじゃなければnilが返ってくる。
 	if err != nil{
 		log.Fatalln("Error!")
@@ -1230,5 +1236,9 @@ func main(){
 */
 
 func main(){
+	s := []int{1,2,3,4,5}
+	fmt.Println(mylib.Averege(s))
 
+	mylib.Say()
+	under.Hello()
 }
