@@ -1,11 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-	"time"
-)
-
 /*
 <<golang_lesson 変数宣言>>
 ----------------------------------
@@ -802,7 +796,7 @@ func New(x, y, z int) *Vertex3D {
 func main() {
 	//v := Vertex{3, 4}
 	//fmt.Println(Area(v))
-	v := New(3,4, 5)
+	v := New(3, 4, 5)
 	v.Scale3D(10)
 	fmt.Println(v.Area())
 	fmt.Println(v.Area3D())
@@ -1078,33 +1072,163 @@ func main(){
 	time.Sleep(2 * time.Second)
 	fmt.Println("Done")
 }
-*/
-
-func producer(ch chan int, i int){
-	ch <- i * 2
+----------------------------------
+<<golang_lesson fan-out&fan-in>>
+----------------------------------
+func producer(first chan int){
+	for i := 0; i < 10; i++{
+		first <- i
+	}
+	close(first)
 }
 
-func consumer(ch chan int, wg *sync.WaitGroup){
-	for i := range ch{
-		func (){
-			defer wg.Done()
-			fmt.Println("process", i * 1000)
-		}()
+//(first <-chan int, second chan<- int)というように明示的にも書ける
+func multi2(first <-chan int, second chan<- int){
+	for i := range first{
+		second <- i * 2
 	}
-	fmt.Println("###############")
+	close(second)
+}
+
+func multi4(second chan int, third chan int){
+	for i := range second{
+		third <- i * 4
+	}
+	close(third)
 }
 
 func main(){
-	var wg sync.WaitGroup
-	ch := make(chan int)
-	//producer
-	for i := 0; i < 10; i++ {
-		wg.Add(1)
-		go producer(ch, i)
+	first := make(chan int)
+	second := make(chan int)
+	third := make(chan int)
+
+	go producer(first)
+	go multi2(first, second)
+	go multi4(second, third)
+	for result := range third {
+		time.Sleep(100 * time.Millisecond)
+		fmt.Println(result)
 	}
-	go consumer(ch, &wg)
-	wg.Wait()
-	close(ch)
-	time.Sleep(2 * time.Second)
-	fmt.Println("Done")
+}
+
+
+----------------------------------
+<<golang_lesson channel&select>>
+----------------------------------
+
+func goroutine1(ch chan string) {
+	for {
+		ch <- "packet from 1"
+		time.Sleep(3 * time.Second)
+	}
+}
+
+func goroutine2(ch chan int) {
+	for {
+		ch <- 100
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func main() {
+	c1 := make(chan string)
+	c2 := make(chan int)
+	go goroutine1(c1)
+	go goroutine2(c2)
+
+	for {
+		select {
+		case msg1 := <-c1:
+			fmt.Println(msg1)
+		case msg2 := <-c2:
+			fmt.Println(msg2)
+		}
+	}
+}
+
+----------------------------------
+<<golang_lesson default_selection&for_break>>
+----------------------------------
+func main() {
+	tick := time.Tick(100 * time.Millisecond)
+	boom := time.After(500 * time.Millisecond)
+	OuterLoop2:
+		for {
+			select {
+			case <-tick:
+				fmt.Println("tick.")
+			case <-boom:
+				fmt.Println("BOOM!")
+				break OuterLoop2
+				//return
+			default:
+				fmt.Println("    .")
+				time.Sleep(50 * time.Millisecond)
+			}
+		}
+		fmt.Println("爆発しました！！！！！")
+}
+
+----------------------------------
+<<golang_lesson sync.Mutex>>
+----------------------------------
+type Counter struct {
+	v map[string]int
+	mux sync.Mutex
+}
+
+func (c *Counter) Inc(key string){
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	c.v[key]++
+}
+
+func (c *Counter) Value(key string) int{
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	return c.v[key]
+}
+
+func main(){
+	//c := make(map[string]int)
+	c := Counter{v: make(map[string]int)}
+	go func(){
+		for i := 0; i < 10; i++{
+			c.Inc("key")
+			//c["key"] += 1
+		}
+	}()
+	go func(){
+		for i := 0; i < 10; i++{
+			c.Inc("key")
+			//c["key"] += 1
+		}
+	}()
+	time.Sleep(1 * time.Second)
+	fmt.Println(c, c.Value("key"))
+}
+----------------------------------
+<<golang_lesson 演習７>>
+----------------------------------
+func goroutine(s []string, c chan string){
+	sum := ""
+	for _, v := range s{
+		sum += v
+		c <- sum
+	}
+	close(c)
+}
+
+func main(){
+	words := []string{"test1!", "test2!", "test3!", "test4!"}
+	c := make(chan string)
+	go goroutine(words, c)
+	for w := range c{
+		fmt.Println(w)
+	}
+}
+*/
+
+func main(){
+
 }
