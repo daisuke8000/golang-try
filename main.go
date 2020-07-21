@@ -1,9 +1,9 @@
 package main
 
 import (
-	"context"
+	"bytes"
 	"fmt"
-	"time"
+	"io/ioutil"
 )
 
 /*
@@ -85,7 +85,6 @@ func main() {
 	fmt.Println(c1,c2,c3)
 	fmt.Println(KB, MB, GB)
 }
-*/
 
 func longProcess(ctx context.Context, ch chan string) {
 	fmt.Println("run")
@@ -113,4 +112,20 @@ CTXLOOP:
 		}
 	}
 	fmt.Println("##############")
+}
+*/
+
+func main() {
+	//content, err := ioutil.ReadFile("main.go")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Println(string(content))
+	//
+	//if err := ioutil.WriteFile("ioutil_temp.go", content, 0666); err != nil {
+	//	log.Fatal(err)
+	//}
+	r := bytes.NewBuffer([]byte("abc"))
+	content, _ := ioutil.ReadAll(r)
+	fmt.Println(string(content))
 }
