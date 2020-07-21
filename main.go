@@ -1,9 +1,10 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 /*
@@ -113,10 +114,8 @@ CTXLOOP:
 	}
 	fmt.Println("##############")
 }
-*/
-
 func main() {
-	//content, err := ioutil.ReadFile("main.go")
+	//content, err := ioutil.RadFile("main.go")
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
@@ -128,4 +127,44 @@ func main() {
 	r := bytes.NewBuffer([]byte("abc"))
 	content, _ := ioutil.ReadAll(r)
 	fmt.Println(string(content))
+}
+*/
+
+func main() {
+	//resp, _ := http.Get("http://example.com")
+	//defer resp.Body.Close()
+	//body, _ := ioutil.ReadAll(resp.Body)
+	//fmt.Println(string(body))
+
+	//1. URLを生成する(POSTの場合はhttpsのケースが多い)
+	base, _ := url.Parse("http://example.com")
+	reference, _ := url.Parse("/test?a=1&b=2")
+	endpoint := base.ResolveReference(reference).String()
+	fmt.Println(endpoint)
+
+	//2.1 リクエストの生成(GET)
+	req, _ := http.NewRequest("GET", endpoint, nil)
+	req.Header.Add("If-None-match", `W/"wyzzy"`)
+	q := req.URL.Query()
+	q.Add("c", "3&%")
+	fmt.Println(q)
+	fmt.Println(q.Encode())
+	req.URL.RawQuery = q.Encode()
+
+	//2.2 リクエストの生成(POST)
+	//今回はPostのURLがないため404が返ってくる。
+	//req, _ := https.NewRequest("POST", endpoint, bytes.NewBuffer([]byte("password")))
+	//req.Header.Add("If-None-match", `W/"wyzzy"`)
+	//q := req.URL.Query()
+	//q.Add("c", "3&%")
+	//fmt.Println(q)
+	//fmt.Println(q.Encode())
+	//req.URL.RawQuery = q.Encode()
+
+
+	//3. Clientの作成
+	var client *http.Client = &http.Client{}
+	resp, _ := client.Do(req)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
 }
