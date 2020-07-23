@@ -1,10 +1,10 @@
 package main
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 )
 
 /*
@@ -128,8 +128,6 @@ func main() {
 	content, _ := ioutil.ReadAll(r)
 	fmt.Println(string(content))
 }
-*/
-
 func main() {
 	//resp, _ := http.Get("http://example.com")
 	//defer resp.Body.Close()
@@ -168,4 +166,75 @@ func main() {
 	resp, _ := client.Do(req)
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println(string(body))
+}
+
+type T struct {
+
+}
+
+type Person struct{
+	Name string `json:"name,omitempty"`
+	Age int `json:"age,omitempty"`
+	Nicknames []string `json:"nicknames,omitempty"`
+	T *T `json:"T,omitempty"`
+}
+
+//func(p *Person) UnmarshalJSON(b []byte) error {
+//	type Person2 struct{
+//		Name string
+//	}
+//	var p2 Person2
+//	err := json.Unmarshal(b, &p2)
+//	if err != nil{
+//		fmt.Println(err)
+//	}
+//	p.Name = p2.Name + "!"
+//	return err
+//}
+
+//func(p Person) MarshalJSON() ([]byte, error) {
+//	v, err := json.Marshal(&struct {
+//		Name string
+//	}{
+//		Name: "Mr." + p.Name,
+//	})
+//	return v, err
+//}
+
+func main(){
+	b := []byte(`{"name":"Mike","age":20,"nicknames":[]}`)
+	var p Person
+	if err := json.Unmarshal(b, &p); err != nil{
+		fmt.Println(err)
+	}
+	fmt.Println(p.Name, p.Age, p.Nicknames)
+
+	v, _ := json.Marshal(p)
+	fmt.Println(string(v))
+}
+*/
+
+var DB = map[string]string{
+	"User1Key":"User1Secret",
+	"User2Key":"User2Secret",
+}
+
+func Server(apiKey, sign string, data []byte){
+	apiSecret := DB[apiKey]
+	h := hmac.New(sha256.New, []byte(apiSecret))
+	h.Write(data)
+	expectedHMAC := hex.EncodeToString(h.Sum(nil))
+	fmt.Println(sign == expectedHMAC)
+}
+
+func main(){
+	const apikey = "User2Key"
+	const apiSecret = "User2Secret"
+
+	data := []byte("data")
+	h := hmac.New(sha256.New, []byte(apiSecret))
+	h.Write(data)
+	sign := hex.EncodeToString(h.Sum(nil))
+	fmt.Println(sign)
+	Server(apikey, sign, data)
 }
