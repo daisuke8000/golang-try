@@ -149,6 +149,7 @@ func main() {
 	q.Add("c", "3&%")
 	fmt.Println(q)
 	fmt.Println(q.Encode())
+
 	req.URL.RawQuery = q.Encode()
 
 	//2.2 リクエストの生成(POST)
